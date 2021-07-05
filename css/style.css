@@ -80,12 +80,12 @@ body {
   font-size: 0.5em;
 }
 
-.temperature-description p {
+.description p {
   padding: 8px;
   margin: 0;
   color: #293251;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
 
 .location p {
@@ -93,5 +93,5 @@ body {
   padding: 0;
   color: #293251;
   text-align: center;
-  font-size: 0.7em;
+  font-size: 1em;
 }
