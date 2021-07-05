@@ -1,11 +1,10 @@
 // api key  OpenWeatherAPI: 96f6ba150dbfde1782395bffef95d6a2;
 
-const d = document,
-  $iconElement = d.querySelector(".weather.icon"),
-  $tempElement = d.querySelector(".temperature-value p"),
-  $descElement = d.querySelector(".temperature-description"),
-  $locationElement = d.querySelector(".location p"),
-  $notificationElement = d.querySelector(".notification");
+const iconElement = document.querySelector(".weather-icon");
+const tempElement = document.querySelector(".temperature-value p");
+const descElement = document.querySelector(".description p");
+const locationElement = document.querySelector(".location p");
+const notificationElement = document.querySelector(".notification");
 
 //App data
 
@@ -24,27 +23,28 @@ const key = "96f6ba150dbfde1782395bffef95d6a2";
 if ("geolocation" in navigator) {
   navigator.geolocation.getCurrentPosition(setPosition, showError);
 } else {
-  $notificationElement.style.display = "block";
-  $notificationElement.innerHTML = `<p>Browser doesn´t support Geolocalization`;
+  notificationElement.style.display = "block";
+  notificationElement.innerHTML = `<p>Browser doesn´t support Geolocalization`;
 }
 
 //Set User Position
 function setPosition(position) {
-  let latitude = position.coords.latitude,
-    longitude = position.coords.longitude;
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
 
   getWeather(latitude, longitude);
 }
 
 //Show Error when there is an issue with geolocalization service
 function showError(error) {
-  $notificationElement.style.display = "block";
-  $notificationElement.innerHTML = `<p>${error.message}`;
+  notificationElement.style.display = "block";
+  notificationElement.innerHTML = `<p>${error.message}`;
 }
 
 // Get weather from API provider
 function getWeather(latitude, longitude) {
-  let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+  let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+  // console.log(api);
   fetch(api)
     .then(function (response) {
       let data = response.json();
@@ -66,8 +66,8 @@ function getWeather(latitude, longitude) {
 
 //display Weather to UI
 function displayWeather() {
-  $iconElement.innerHTML = `<img src="../Assets/icons/${weather.iconId}.png">`;
-  $tempElement.innerHTML = `${weather.temperature.value}° <span>C</span>`;
-  $descElement.innerHTML = weather.description;
-  $locationElement.innerHTML = `${weather.city}, ${weather.country}`;
+  iconElement.innerHTML = `<img src="/Weather_App/assets/icons/${weather.iconId}.png" />`;
+  tempElement.innerHTML = `${weather.temperature.value}° <span>C</span>`;
+  descElement.innerHTML = weather.description;
+  locationElement.innerHTML = `${weather.city}, ${weather.country}`;
 }
